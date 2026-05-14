@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система анализа научной активности РЭУ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Анализ научной активности сотрудников РЭУ</h1>
+            <!-- Панель авторизации -->
+            <div id="authPanel" class="auth-panel">
+                <div id="userInfo" class="user-info">
+                    <span id="userRoleBadge" class="role-badge guest">👤 Гость</span>
+                </div>
+                <button id="authBtn" class="auth-btn">🔑 Войти как админ</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <select id="yearFilter">
+                <option value="all">Все годы</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+            </select>
+            <!-- Кнопка обновления данных (будет видна только админу) -->
+            <button id="refreshBtn" class="refresh-btn" style="display: none;">🔄 Обновить данные</button>
+        </div>
+
+        <!-- Модальное окно для входа -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>🔐 Вход в админ-панель</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Логин:</label>
+                        <input type="text" id="username" name="username" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Войти</button>
+                </form>
+                <p class="demo-hint">💡 Демо-доступ: admin / admin123</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Всего публикаций</h3>
+                <div class="stat-value" id="totalPubs">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Всего цитирований</h3>
+                <div class="stat-value" id="totalCits">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Средний h-индекс</h3>
+                <div class="stat-value" id="avgHIndex">0</div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-container">
+                <canvas id="publicationsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="citationsChart"></canvas>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2>📚 Рейтинг разделов</h2>
+            <table id="sectionsTable">
+                <thead>
+                    <tr><th>Раздел</th><th>Сотрудников</th><th>Публикации</th><th>Цитирования</th><th>Средний h-индекс</th></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
