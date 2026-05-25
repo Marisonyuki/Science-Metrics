@@ -15,30 +15,25 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Проверяем app.py
-if not exist "app.py" (
-    echo [ОШИБКА] Файл app.py не найден!
-    pause
-    exit /b 1
-)
+:: Устанавливаем зависимости
+echo [1/3] Установка зависимостей...
+pip install -r requirements.txt
 
 :: Запускаем сервер
-echo Запуск сервера...
-start "Science Metrics Server" cmd /c "python app.py & pause"
+echo [2/3] Запуск сервера...
+start "Science Metrics Server" cmd /k "python app.py"
 
-:: Ждём 10 секунд (серверу нужно время для инициализации)
-echo Ожидание запуска сервера...
-timeout /t 10 /nobreak >nul
+:: Ждём запуска
+echo [3/3] Ожидание запуска сервера...
+timeout /t 5 /nobreak >nul
 
 :: Открываем браузер
-echo Открытие браузера...
-start http://localhost:5000
+start http://127.0.0.1:5000
 
 echo.
 echo ===============================================
-echo    Сервер запущен: http://localhost:5000
-echo    Для остановки закройте окно "Science Metrics Server"
+echo    Сервер запущен: http://127.0.0.1:5000
+echo    PostgreSQL БД: science_metrics
 echo ===============================================
-echo.
 
-pause
+exit
