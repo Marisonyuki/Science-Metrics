@@ -5,7 +5,7 @@ let citationsChart = null;
 let isAdmin = false;
 
 // API бэкенда (Python)
-const API_URL = 'http://localhost:5000/api';
+const API_URL = '/api';
 
 // Инициализация базы данных (SQLite в браузере)
 async function initDatabase() {
