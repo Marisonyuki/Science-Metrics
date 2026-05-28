@@ -330,12 +330,12 @@ def run_scraping():
 @app.route('/')
 def index():
     """Главная страница"""
-    return send_from_directory('frontend', 'index.html')
+    return send_from_directory('Frontend', 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
     """Обслуживание статических файлов (CSS, JS)"""
-    return send_from_directory('frontend', path)
+    return send_from_directory('Frontend', path)
 
 @app.route('/api/departments', methods=['GET'])
 def get_departments():
