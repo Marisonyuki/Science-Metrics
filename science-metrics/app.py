@@ -10,7 +10,7 @@ from psycopg2.extras import RealDictCursor
 import requests
 from bs4 import BeautifulSoup
 import pdfplumber
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -329,12 +329,12 @@ def run_scraping():
 
 @app.route('/')
 def index():
-    from flask import send_from_directory
+    """Главная страница"""
     return send_from_directory('frontend', 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    from flask import send_from_directory
+    """Обслуживание статических файлов (CSS, JS)"""
     return send_from_directory('frontend', path)
 
 @app.route('/api/departments', methods=['GET'])
