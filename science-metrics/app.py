@@ -412,6 +412,8 @@ def get_scraping_status():
         'total_files': scraping_status['total_files']
     })
 
+init_db()
+
 # ========== ЗАПУСК ==========
 if __name__ == '__main__':
     init_db()
